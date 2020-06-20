@@ -1,19 +1,28 @@
 import json
 import os
 ItemList = []
+ChampList= []
 
+myDir = 'Users\tolud\PycharmProjects\RiotTest\Champions 10.8.1'
 
 class  Champion():
-    def __init__(self, name):
+    def __init__(self, name, stats):
         self.name = name
         self.items = []
+        self.maxItems = False
+        self.stats = stats
     def getChamp(self):
         return self.name
+    def AddItems(self):
+        pass
+    def MaxItems(self):#Set the max amount of Items that any champion can have
+        if len(self.items) == 6:
+            self.maxItems = True
 
 class Items():
-    def __init__(self, name, keyCode):
+    def __init__(self, name, ):
         self.name = name
-        self.keyCode = keyCode
+
     def getItemName(self):
         return self.name
 
@@ -21,8 +30,7 @@ class Items():
         if self.name.index > -1:
             pass
 
-    def getItemKeyCode(self):
-        return self.keyCode
+
 
 
 
@@ -57,20 +65,32 @@ def ReadbleChamp():
 
     for key in data['data']['Aatrox']['stats']:
         print(data['data']['Aatrox']['stats'][key])
+
+
 def CreateChamps():
-    pass
+    thisdir = '/Users/tolud/PycharmProjects/RiotTest/Champions 10.8.1'
+    for file in os.listdir(thisdir):
+
+        with open("Champions 10.8.1/" + file, "r") as j:
+            data = json.load(j)
+            champ = Champion(file[:-5], data["data"][file[:-5]]["stats"])
+        ChampList.append(champ)
+
+
+
+
 def CreateItems():
     with open("item.json", "r") as j: #opens the item.json file
         data = json.load(j)
     for item in data["data"]:
-        item = Items(data["data"][item]["name"], str(data["data"][item].keys))
+        item = Items(data["data"][item]["name"])
 
         ItemList.append(item)
 
 
+
 CreateItems()
 
-for item in ItemList:
-    print(item.keyCode)
+CreateChamps()
 
 
