@@ -19,14 +19,21 @@ class  Champion():
 
 
     def AddItems(self, item):
+
+        with open("StatMap.json", "r") as j:
+            data = json.load(j)
+
         for thing in ItemList:
-            if (thing.getItemName() == item) and (self.maxItems == False):
+            if (thing.getItemName() == item): #and (self.maxItems == False):
                 self.items.append(thing)
-        for ItemStatKey, ItemStat in thing.stats.items():
-            for ChampStatKey, ChampStat in self.stats.items():  # iterate the stat that each item gives
-                if ChampStatKey in ItemStatKey:
-                    self.stats[ChampStatKey] += item.stats[ItemStatKey]
-                    break
+                for ItemStatKey in thing.stats.keys():
+                    for ChampStatKey, ChampStat in self.stats.items():  # iterate the stat that each item gives
+                        if ChampStatKey == data["stats"][ItemStatKey]:
+                           self.stats[ChampStatKey] += thing.stats[ItemStatKey]
+                           break
+
+
+
 
     def getItemList(self):
         return self.items
@@ -39,19 +46,19 @@ class  Champion():
             self.maxItems = True
 
 class Items():
-    def __init__(self, name, stats, tags):
+    def __init__(self, name, stats):
         self.name = name
         self.stats = stats
-        self.tags = tags
+
     def getItemName(self):
         return self.name
 
     def IsBoot(self):
         if self.name.index > -1:
             pass
-    def returnTags(self):
-        return self.tags
 
+    def getItemStats(self):
+        return self.stats
 
 
 
@@ -77,16 +84,7 @@ def ReadItems():
 
 
 
-def ReadbleChamp():
 
-    with open("Champions 10.8.1/Ahri.json.json", "r") as j:
-        data = json.load(j)
-    with open("ReadbleChamp.json", "w") as f:
-        json.dump(data, f, indent=4)
-
-
-    for key in data['data']['Aatrox']['stats']:
-        print(data['data']['Aatrox']['stats'][key])
 
 
 def CreateChamps():
@@ -104,8 +102,10 @@ def CreateChamps():
 def CreateItems():
     with open("item.json", "r") as j: #opens the item.json file
         data = json.load(j)
-    for item in data["data"]:
-        item = Items(data["data"][item]["name"], data["data"][item]["stats"], data["data"][item]["tags"])
+        keylist = list(data["data"].keys())
+
+    for index, item in enumerate(keylist):
+        item = Items(keylist[index], data["data"][item])
 
         ItemList.append(item)
 
@@ -114,8 +114,8 @@ def CreateItems():
 CreateItems()
 
 CreateChamps()
+
 print(ChampList[0].getStats())
 ChampList[0].AddItems("Boots of Speed")
-print(ChampList[0].getItemList())
-print(ChampList[0].getStats())
 
+print(ChampList[0].getStats())
