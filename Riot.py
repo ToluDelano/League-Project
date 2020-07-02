@@ -7,7 +7,7 @@ myDir = 'Users\tolud\PycharmProjects\RiotTest\Champions 10.8.1'
 
 
 
-class  Champion():
+class Champion():
     def __init__(self, name, stats):
         self.name = name
         self.items = []
@@ -95,7 +95,7 @@ def CreateChamps():
 
         with open("Champions 10.8.1/" + file, "r", encoding="mbcs") as j:
             data = json.load(j)
-            champ = Champion(file[:-5], data["data"][file[:-5]]["stats"])
+            champ = Champion(file[:-5], data["data"]["stats"])
         ChampList.append(champ)
 
 
@@ -111,10 +111,15 @@ def CreateItems():
 
         ItemList.append(item)
 
-def SearchItems():
-    pass
-def SearchChamp():
-    pass
+def SearchItems(itemName, itemList):
+    for obj in itemList:
+        if obj.getItemName() == itemName:
+            return obj
+
+def SearchChamp(champName, Champlist):
+    for obj in ChampList:
+        if obj.getChamp() == champName:
+            return obj
 
 def Compare(Champ1, Champ2):
     pass
@@ -123,7 +128,10 @@ CreateItems()
 
 CreateChamps()
 
-print(ChampList[0].getStats())
-ChampList[0].AddItems("Pickaxe")
+#print(ChampList[0].getStats())
+#ChampList[0].AddItems("Pickaxe")
 
-print(ChampList[0].getStats())
+#print(ChampList[0].getStats())
+
+
+print(SearchChamp("Aatrox", ChampList))
