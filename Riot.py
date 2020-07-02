@@ -5,6 +5,8 @@ ChampList= []
 
 myDir = 'Users\tolud\PycharmProjects\RiotTest\Champions 10.8.1'
 
+
+
 class  Champion():
     def __init__(self, name, stats):
         self.name = name
@@ -109,13 +111,19 @@ def CreateItems():
 
         ItemList.append(item)
 
+def SearchItems():
+    pass
+def SearchChamp():
+    pass
 
+def Compare(Champ1, Champ2):
+    pass
 
 CreateItems()
 
 CreateChamps()
 
 print(ChampList[0].getStats())
-ChampList[0].AddItems("Boots of Speed")
+ChampList[0].AddItems("Pickaxe")
 
 print(ChampList[0].getStats())
