@@ -1,129 +1,109 @@
 import json
 import os
 ItemList = []
-ChampList= []
+ChampList = []
 
-myDir = 'Users\tolud\PycharmProjects\RiotTest\Champions 10.8.1'
+myDir = os.getcwd() + '\Champions 10.8.1'
 
 
-
-class  Champion():
+class Champion:
     def __init__(self, name, stats):
         self.name = name
         self.items = []
         self.maxItems = False
         self.stats = stats
-    def getChamp(self):
+
+    def getchamp(self):
         return self.name
-    def getStats(self):
+
+    def getstats(self):
         return self.stats
 
-
-
-    def AddItems(self, item):
-
+    def additems(self, item):
         with open("StatMap.json", "r") as j:
             data = json.load(j)
-
         for thing in ItemList:
-            if (thing.getItemName() == item): #and (self.maxItems == False):
+            if thing.getitemname() == item:  # and (self.maxItems == False):
                 self.items.append(thing)
                 for ItemStatKey in thing.stats.keys():
                     for ChampStatKey, ChampStat in self.stats.items():  # iterate the stat that each item gives
                         if ChampStatKey == data["stats"][ItemStatKey]:
-                           self.stats[ChampStatKey] += thing.stats[ItemStatKey]
-                           break
+                            self.stats[ChampStatKey] += thing.stats[ItemStatKey]
+                            break
 
-
-
-
-    def getItemList(self):
+    def getitemlist(self):
         return self.items
 
-
-
-
-    def MaxItems(self):#Set the max amount of Items that any champion can have
+    def maxitems(self):  # Set the max amount of Items that any champion can have
         if len(self.items) == 6:
             self.maxItems = True
 
-class Items():
+
+class Items:
     def __init__(self, name, stats):
         self.name = name
         self.stats = stats
 
-    def getItemName(self):
+    def getitemname(self):
         return self.name
 
-    def IsBoot(self):
+    def isboot(self):
         if self.name.index > -1:
             pass
 
-    def getItemStats(self):
+    def getitemstats(self):
         return self.stats
 
 
-
-
-
-
-def ReadItems():
+def readitems():
+    items = []
+    items_stat_type = []
+    items_stats = []
 
     with open("item.json", "r") as j:
         data = json.load(j)
     with open("response.json", "w") as f:
         json.dump(data, f, indent=4)
-
-    items = []
-    items_Stat_Type = []
-    items_stats = []
-
     for key in data['data']:
         items.append(data['data'][key]['name'])
-        #print(data['data'][key]['name'])
-
+        # print(data['data'][key]['name'])
     print(items[0])
 
 
-
-
-
-
-def CreateChamps():
-    thisdir = '/Users/tolud/PycharmProjects/RiotTest/Champions 10.8.1'
+def createchamps():
+    thisdir = os.getcwd() + '/Champions 10.8.1'
     for file in os.listdir(thisdir):
-
         with open("Champions 10.8.1/" + file, "r", encoding="mbcs") as j:
             data = json.load(j)
             champ = Champion(file[:-5], data["data"][file[:-5]]["stats"])
         ChampList.append(champ)
 
 
-
-
-def CreateItems():
-    with open("item.json", "r") as j: #opens the item.json file
+def createitems():
+    with open("item.json", "r") as j:  # opens the item.json file
         data = json.load(j)
         keylist = list(data["data"].keys())
-
     for index, item in enumerate(keylist):
         item = Items(keylist[index], data["data"][item])
-
         ItemList.append(item)
 
-def SearchItems():
-    pass
-def SearchChamp():
-    pass
 
-def Compare(Champ1, Champ2):
+def searchitems():
     pass
 
-CreateItems()
 
-CreateChamps()
+def searchchamp():
+    pass
 
-print(ChampList[0].getStats())
-ChampList[0].AddItems("Pickaxe")
 
-print(ChampList[0].getStats())
+def compare(champ1, champ2):
+    pass
+
+
+createitems()
+createchamps()
+#
+print(ChampList[0].getstats())
+ChampList[0].additems("Pickaxe")
+#
+print(ChampList[0].getstats())
