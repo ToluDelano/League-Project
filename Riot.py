@@ -6,12 +6,11 @@ ChampList = []
 myDir = os.getcwd() + '\Champions 10.8.1'
 
 
-<<<<<<< HEAD
 
-class Champion():
-=======
+
+
 class Champion:
->>>>>>> bda6ae2dd7c69d80f8a584ac376e7af75ee5f6e8
+
     def __init__(self, name, stats):
         self.name = name
         self.items = []
@@ -92,45 +91,32 @@ def createitems():
         item = Items(keylist[index], data["data"][item])
         ItemList.append(item)
 
-<<<<<<< HEAD
-def SearchItems(itemName, itemList):
-    for obj in itemList:
-        if obj.getItemName() == itemName:
+
+def searchitems(itemname, itemlist):
+    for obj in itemlist:
+        if obj.getitemname() == itemname:
             return obj
 
-def SearchChamp(champName, Champlist):
-    for obj in ChampList:
-        if obj.getChamp() == champName:
+def searchchamp(champname, champlist):
+    for obj in champlist:
+        if obj.getchamp() == champname:
             return obj
-=======
 
-def searchitems():
-    pass
->>>>>>> bda6ae2dd7c69d80f8a584ac376e7af75ee5f6e8
-
-
-def searchchamp():
-    pass
 
 
 def compare(champ1, champ2):
     pass
 
-<<<<<<< HEAD
-#print(ChampList[0].getStats())
-#ChampList[0].AddItems("Pickaxe")
-
-#print(ChampList[0].getStats())
-
-
-print(SearchChamp("Aatrox", ChampList))
-=======
+createchamps()
 
 createitems()
-createchamps()
-#
 print(ChampList[0].getstats())
 ChampList[0].additems("Pickaxe")
-#
 print(ChampList[0].getstats())
->>>>>>> bda6ae2dd7c69d80f8a584ac376e7af75ee5f6e8
+
+
+#print(searchchamp("Aatrox", ChampList))
+
+
+
+
